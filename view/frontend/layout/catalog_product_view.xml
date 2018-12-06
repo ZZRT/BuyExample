@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.form.content">
+            <block
+                    class="Wise\BuyExample\Block\AddExampleToCart"
+                    name="wise.product.addtocart.example"
+                    template="Wise_BuyExample::product/addexample.phtml"
+                    after="product.info.addtocart"/>
+        </referenceBlock>
+    </body>
+</page>
