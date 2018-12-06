@@ -1,0 +1,27 @@
+{
+  "name": "wise/module-buyexample",
+  "description": "The extension allows customers to add examples of products with a unique price(fixed or percent for simple products, percent for configurable).",
+  "authors": [
+    {
+      "email": "eugene.malofienko@wdg.com.ua",
+      "name": "Wise Ltd."
+    }
+  ],
+  "config": {
+    "sort-packages": true
+  },
+  "require": {
+    "php": "~7.1.3||~7.2.0",
+    "magento/framework": "102.0.*"
+  },
+  "type": "magento2-module",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Wise\\BuyExample\\": ""
+    }
+  },
+  "version": "0.0.1"
+}
