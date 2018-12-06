@@ -13,13 +13,13 @@ $isEnabled = $helper->isEnabled();
 <?php if ($isEnabled): ?>
     <?php $buttonTitle = __('Add Example to Cart (' . $block->getPriceMessage($_product) . ')'); ?>
     <?php if ($_product->isSaleable()): ?>
-        <div class="box-tocart">
+        <div class="box-example-tocart">
             <div class="fieldset">
                 <div class="actions">
                     <button type="button"
                             title="<?= /* @escapeNotVerified */
                             $buttonTitle ?>"
-                            class="action primary tocart"
+                            class="action primary example-tocart"
                             id="product-addtocart-example-button">
                         <span><?= /* @escapeNotVerified */
                             $buttonTitle ?></span>
