@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="smallint" name="is_wise_product_example" padding="5" unsigned="true" default="0" identity="false"
+                comment="Is Wise Example Product"/>
+    </table>
+    <table name="sales_order_item">
+        <column xsi:type="smallint" name="is_wise_product_example" padding="5" unsigned="true" default="0" identity="false"
+                comment="Is Wise Example Product"/>
+    </table>
+    <table name="sales_order_grid">
+        <column xsi:type="smallint" name="is_wise_product_example" padding="5" unsigned="true" default="0" identity="false"
+                comment="Is Wise Example Product"/>
+    </table>
+    <table name="quote_item">
+        <column xsi:type="smallint" name="is_wise_product_example" padding="5" unsigned="true" default="0" identity="false"
+                comment="Is Wise Example Product"/>
+    </table>
+</schema>
+
+
