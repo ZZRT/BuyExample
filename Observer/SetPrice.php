@@ -54,7 +54,7 @@ class SetPrice implements ObserverInterface
     public function getExampleProductPrice($product)
     {
         if ((bool)$product->getData('wise_sample_product_price_type')) {
-            return $product->getData('wise_sample_product_price_type');
+            return $product->getData('wise_sample_price_value');
         } else {
             $price = (float)$product->getPrice() * (float)$product->getData('wise_sample_price_value') / 100;
             return $price;

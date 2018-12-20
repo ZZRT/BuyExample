@@ -264,20 +264,32 @@ class AddExampleToCart extends AbstractProduct implements \Magento\Framework\Dat
         try {
             if (!$product) {
                 $product = $this->getProduct();
-            } elseif ((bool)$product->getData('wise_sample_product_price_type')) {
+            }
+            if ((bool)$product->getData('wise_sample_product_price_type')) {
+                $fixedPrice = $product->getData('wise_sample_price_value');
+                if(empty($fixedPrice)) return $this->setFree($fixedPrice);
                 $message = 'with Fixed Price: ';
-                $fixedPrice = $product->getData('wise_sample_product_price_type');
                 $message .= (string)$fixedPrice;
                 return $message . ' ' . $currency;
-            } else {
+            } elseif ($product->getTypeId() === 'configurable') {
+                $percentPrice = (float)$product->getData('wise_sample_price_value');
+                if(empty($percentPrice)) return $this->setFree($percentPrice);
                 $message = 'with Percent Price: ';
-                $percentPrice = (float)$product->getPrice() * (float)$product->getData('wise_sample_price_value') / 100;
                 $message .= (string)$percentPrice;
-                return $message. ' ' . $currency;
+                return $message . '%';
+            } else {
+                $percentPrice = (float)$product->getPrice() * (float)$product->getData('wise_sample_price_value') / 100;
+                if(empty($percentPrice)) return $this->setFree($percentPrice);
+                $message = 'with Percent Price: ';
+                $message .= (string)$percentPrice;
+                return $message . ' ' . $currency;
             }
         } catch (\Exception $e) {
             return $message;
         }
-        return $message;
+    }
+
+    protected function setFree($price){
+        if (empty($price)) return 'FREE';
     }
 }
