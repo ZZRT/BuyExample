@@ -20,7 +20,7 @@ define([
             minicartSelector: '[data-block="minicart"]',
             messagesSelector: '[data-placeholder="messages"]',
             productStatusSelector: '.stock.available',
-            addToCartButtonSelector: '.action.example-tocart',
+            addToCartButtonSelector: '#product-addtocart-example-button',
             addToCartButtonDisabledClass: 'disabled',
             addToCartButtonTextWhileAdding: '',
             addToCartButtonTextAdded: '',
@@ -30,7 +30,6 @@ define([
         /** @inheritdoc */
         _create: function () {
             if (this.options.bindSubmit) {
-                console.log(this.options);
                 this._bindSubmit();
             }
         },
@@ -96,7 +95,7 @@ define([
             $(self.options.minicartSelector).trigger('contentLoading');
             self.disableAddToCartButton(form);
             formData = new FormData(form[0]);
-
+            formData.exampleProduct = true;
             $.ajax({
                 url: form.attr('action'),
                 data: formData,
@@ -116,7 +115,6 @@ define([
                 /** @inheritdoc */
                 success: function (res) {
                     var eventData, parameters;
-
                     $(document).trigger('ajax:addToCart', {
                         'sku': form.data().productSku,
                         'productIds': productIds,
@@ -179,6 +177,7 @@ define([
          * @param {String} form
          */
         disableAddToCartButton: function (form) {
+            this.options.addToCartButtonTextDefault = $(this.options.addToCartButtonSelector + ' span').text();
             var addToCartButtonTextWhileAdding = this.options.addToCartButtonTextWhileAdding || $t('Example Adding...'),
                 addToCartButton = $(form).find(this.options.addToCartButtonSelector);
 

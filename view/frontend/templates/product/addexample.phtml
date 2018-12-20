@@ -10,32 +10,55 @@ $_product = $block->getProduct();
 $helper = $this->helper('Wise\BuyExample\Helper\Data');
 $isEnabled = $helper->isEnabled();
 ?>
-<?php if ($isEnabled): ?>
+<?php if ($isEnabled && (bool)$_product->getData('wise_sample_product_enabled')): ?>
     <?php $buttonTitle = __('Add Example to Cart (' . $block->getPriceMessage($_product) . ')'); ?>
     <?php if ($_product->isSaleable()): ?>
-        <div class="box-example-tocart">
-            <div class="fieldset">
-                <div class="actions">
-                    <button type="submit"
-                            title="<?= /* @escapeNotVerified */
-                            $buttonTitle ?>"
-                            class="action primary example-tocart"
-                            id="product-addtocart-example-button">
+        <form data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
+              action="<?= /* @NoEscape */ $block->getSubmitUrl($_product) ?>" method="post"
+              id="product_addexampletocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $_product->getId() ?>" />
+            <input type="hidden" name="item"  value="<?= /* @noEscape */ $block->getRequest()->getParam('id') ?>" />
+            <input type="hidden" name="is_example"  value="1" />
+            <?= $block->getBlockHtml('formkey') ?>
+            <?= $block->getChildHtml('form_top') ?>
+            <?php if (!$block->hasOptions()):?>
+                <?= $block->getChildHtml('product_info_form_content') ?>
+            <?php else:?>
+                <?php if ($_product->isSaleable() && $block->getOptionsContainer() == 'container1'):?>
+                    <?= $block->getChildChildHtml('options_container') ?>
+                <?php endif;?>
+            <?php endif; ?>
+
+            <?php if ($_product->isSaleable() && $block->hasOptions() && $block->getOptionsContainer() == 'container2'):?>
+                <?= $block->getChildChildHtml('options_container') ?>
+            <?php endif;?>
+            <?= $block->getChildHtml('form_bottom') ?>
+            <div class="box-example-tocart">
+                <div class="fieldset">
+                    <div class="actions">
+                        <button type="submit"
+                                title="<?= /* @escapeNotVerified */
+                                $buttonTitle ?>"
+                                class="action primary example-tocart"
+                                id="product-addtocart-example-button">
                         <span><?= /* @escapeNotVerified */
                             $buttonTitle ?></span>
-                    </button>
-                    <?= $block->getChildHtml('', true) ?>
+                        </button>
+                        <?= $block->getChildHtml('', true) ?>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     <?php endif; ?>
 <?php endif; ?>
 
 
 <script type="text/x-magento-init">
     {
-        "#product_addtocart_form": {
+        "#product_addexampletocart_form": {
             "Wise_BuyExample/add-wise-example-to-cart": {}
         }
     }
+
+
 </script>
